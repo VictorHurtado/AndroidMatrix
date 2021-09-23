@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    ndkVersion sdk.ndk
+    compileSdkVersion sdk.compile
+
+    defaultConfig {
+        applicationId "com.scandit.datacapture.matrixscanrejectsample"
+        minSdkVersion sdk.min
+        targetSdkVersion sdk.target
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        pickFirst '**/*.so'
+        doNotStrip "*/*/libdjivideo.so"
+        doNotStrip "*/*/libSDKRelativeJNI.so"
+        doNotStrip "*/*/libFlyForbid.so"
+        doNotStrip "*/*/libduml_vision_bokeh.so"
+        doNotStrip "*/*/libyuv2.so"
+        doNotStrip "*/*/libGroudStation.so"
+        doNotStrip "*/*/libFRCorkscrew.so"
+        doNotStrip "*/*/libUpgradeVerify.so"
+        doNotStrip "*/*/libFR.so"
+        doNotStrip "*/*/libDJIFlySafeCore.so"
+        doNotStrip "*/*/libdjifs_jni.so"
+        doNotStrip "*/*/libsfjni.so"
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+dependencies {
+    api "com.scandit.datacapture:core:${versions.scandit_sdk_version}"
+    api "com.scandit.datacapture:barcode:${versions.scandit_sdk_version}"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+
+    implementation "androidx.appcompat:appcompat:${versions.androidx_appcompat}"
+    implementation "com.google.android.material:material:${versions.material}"
+
+    implementation "androidx.constraintlayout:constraintlayout:${versions.androidx_constraintlayout}"
+
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation ('com.dji:dji-sdk:4.12')
+    compileOnly ('com.dji:dji-sdk-provided:4.12')
+
+}
+task wrapper(type: Wrapper) {
+    gradleVersion = '6.7.1'
+}
+task prepareKotlinBuildScriptModel {
+}
